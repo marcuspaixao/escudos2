@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Escudos</title>
+    <meta http-equiv="keywords" content="" />
+    <meta http-equiv="description" content="" />
+    <link href="css/style.css"rel="stylesheet" type="text/css" />
+  
+</head>
+
+<script>
+var gerado = 999;
+var gerado_old = 999;
+var gerados = 1;
+var digitados = "";
+var vez = 3;
+var ind_vez = 1;
+var vez_digitado = 0;
+var times = ["Atlético Mineiro", "Atlético Paranaense","Bahia","Botafogo","Chapecoense","Corinthians","Coritiba","Criciúma","Cruzeiro","Figueirense","Flamengo", "Fluminense", "Goiás", "Grêmio","Internacional","Palmeiras","Santos","São Paulo","Sport","Vitória"];
+var escudos = ["Atlético_Mineiro.jpg", "Atlético_Paranaense.gif","Bahia.gif","Botafogo.gif","Chapecoense.gif","Corinthians.gif","Coritiba.gif","Criciúma.gif","Cruzeiro.gif","Figueirense.gif","Flamengo.gif", "Fluminense.gif", "Goiás.gif", "Grêmio.gif","Internacional.gif","Palmeiras.gif","Santos.gif","São_Paulo.jpg","Sport.gif","Vitória.gif"];
+
+
+var timessorteados = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+var pontos =0 ;
+
+function fnc_sortear()
+{
+timesgrade = [0, 0, 0, 0];
+grade      = [0, 0, 0, 0];
+//alert(gerados);
+if(gerados <21)
+{
+
+ok=0
+//alert(1);
+//alert(ok);
+  while(ok==0)
+  {
+   //se for igual, eu gero um novo
+   gerado  = Math.floor(Math.random() * 20);
+   //alert (gerado)
+   if (timessorteados[gerado]==0)
+   {
+//   alert(gerado);
+      ok=1;
+	  timessorteados[gerado]=1;
+	  timesgrade[gerado]=gerado;
+   }
+  }
+//alert(ok);
+gerados = gerados+1;
+digitados = "";
+//gero a posicao na grade
+posicao    = Math.floor(Math.random() * 4);
+//posicao = posicao + 1;
+grade[posicao] = gerado;
+//fim posicao na grade
+//document.getElementById('time').innerHTML = times[gerado] +"|" + gerados +"|" + timessorteados;
+document.getElementById('time').innerHTML = times[gerado] ;
+posicao_grade=0;
+while (posicao_grade<4)
+{
+if(posicao_grade!=posicao)
+{
+//alert(1);
+ok=0;
+while (ok==0)
+{
+     gerado_grade  = Math.floor(Math.random() * 20);
+	 if ((gerado_grade!=gerado))
+	 {
+         posaux =0
+	     existe = 0
+         while (posaux<4)
+         {
+	       if ((grade[posaux]==gerado_grade))
+	          {
+               existe=1;
+		       posaux=5;
+	          }
+           posaux=posaux+1;
+        }
+	    if (existe==0)
+	     {
+            ok=1;
+		    grade[posicao_grade]=gerado_grade;
+	        timesgrade[gerado_grade]=1;
+            digitados = digitados + "|"+escudos[gerado_grade];
+	     }
+	  }
+
+	 }
+}
+else
+{
+	  grade[posicao_grade]=gerado;
+	  timesgrade[posicao_grade]=1;
+      digitados = digitados + "|"+escudos[gerado];
+}
+	  posicao_grade= posicao_grade+1;
+}
+document.getElementById('grade_0').innerHTML = "<table><tr><td><IMG SRC=images/bolafut.gif id =img_0 WIDTH=47 HEIGHT=47 BORDER=0><td><IMG SRC=images/bolafut.gif id =img_1 IDTH=47 HEIGHT=47 BORDER=0 ><tr><td><IMG SRC=images/bolafut.gif id =img_2 WIDTH=47 HEIGHT=47 BORDER=0 ><td><IMG SRC=images/bolafut.gif id =img_3 WIDTH=47 HEIGHT=47 BORDER=0 ></table>";
+document.getElementById('grade_0').innerHTML = "<a href=javascript:fnc_escolheu(0)><IMG SRC=images/"+escudos[grade[0]]+" id=img_0 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('grade_1').innerHTML = "<a href=javascript:fnc_escolheu(1)><IMG SRC=images/"+escudos[grade[1]]+" id=img_1 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('grade_2').innerHTML = "<a href=javascript:fnc_escolheu(2)><IMG SRC=images/"+escudos[grade[2]]+" id=img_2 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('grade_3').innerHTML = "<a href=javascript:fnc_escolheu(3)><IMG SRC=images/"+escudos[grade[3]]+" id=img_3 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+}
+else
+{
+fnc_terminar("ganhou");
+}
+}
+function fnc_terminar(acao)
+{
+
+if (acao=="ganhou")
+{
+document.getElementById('grade_0').innerHTML = "<a href=index.html><IMG SRC=images/ganhou.jpg id=img_0 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('grade_1').innerHTML = "<a href=index.html><IMG SRC=images/ganhou.jpg id=img_1 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('grade_2').innerHTML = "<a href=index.html><IMG SRC=images/ganhou.jpg id=img_2 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('grade_3').innerHTML = "<a href=index.html><IMG SRC=images/ganhou.jpg id=img_3 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('time').innerHTML =   "Parabéns você ganhou.";
+}
+
+if (acao=="perdeu")
+{
+document.getElementById('grade_0').innerHTML = "<a href=index.html><IMG SRC=images/perdeu.jpg id=img_0 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('grade_1').innerHTML = "<a href=index.html><IMG SRC=images/perdeu.jpg id=img_1 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('grade_2').innerHTML = "<a href=index.html><IMG SRC=images/perdeu.jpg id=img_2 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('grade_3').innerHTML = "<a href=index.html><IMG SRC=images/perdeu.jpg id=img_3 WIDTH=47 HEIGHT=47 BORDER=0></a>";
+document.getElementById('time').innerHTML =   "Que pena você perdeu.";
+}
+document.getElementById('pontos').innerHTML =   "&nbsp;";
+document.getElementById('vez').innerHTML =   "&nbsp;";
+}
+function fnc_escolheu(posicao)
+{
+var valor =grade[posicao];
+if (gerado==grade[posicao])
+{
+pontos=pontos+1;
+document.getElementById('pontos').innerHTML =   "Pontos : "+pontos ;
+fnc_sortear();
+}
+else
+{
+vez = vez-1;
+document.getElementById('vez').innerHTML =   "Chances : "+ vez;
+if (posicao==0)
+{
+document.getElementById('grade_0').innerHTML = "<IMG SRC=images/x.jpg WIDTH=47 HEIGHT=47 BORDER=0>";
+}
+if (posicao==1)
+{
+document.getElementById('grade_1').innerHTML = "<IMG SRC=images/x.jpg WIDTH=47 HEIGHT=47 BORDER=0>";
+}
+if (posicao==2)
+{
+document.getElementById('grade_2').innerHTML = "<IMG SRC=images/x.jpg WIDTH=47 HEIGHT=47 BORDER=0>";
+}
+if (posicao==3)
+{
+document.getElementById('grade_3').innerHTML = "<IMG SRC=images/x.jpg WIDTH=47 HEIGHT=47 BORDER=0>";
+}
+
+if (vez==0)
+{
+fnc_terminar("perdeu");
+}
+}
+
+}
+</script>
+<body>
+<form name=formulario>
+	<div id="header">
+        <div class="nav">
+        	<ul>
+                <li><a href="index.html">Iniciar</a></li> 
+				</ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+	<h2>
+    <div id=pontos class="clear">Pontos : 0</div>
+    <div id=vez class="clear">Chances : 3</div>
+<br>
+<br>
+    <div id=time class="clear"></div>
+    <div id=grade class="clear"></div>
+
+	
+<br>
+</h2>
+<br>
+<br>
+	<div id="featured" class="container">
+		<div id="grade_0"> <img src="images/bolafut.gif" width="47" height="47" alt="" />
+			<p></p>
+		</div>
+		<div id="grade_1"> <img src="images/bolafut.gif" width="47" height="47" alt="" />
+			<p></p>
+		</div>
+		</div>
+	<div id="featured2" class="container">
+		<div id="grade_2"> <img src="images/bolafut.gif" width="47" height="47" alt="" />
+			<p></p>
+		</div>
+		<div id="grade_3"> <img src="images/bolafut.gif" width="47" height="47" alt="" />
+			<p></p>
+		</div>
+	</div>
+
+        <div class="nav2">
+			<p>xxx -xxxxxxxxxxxxxxxxxxx (99) 0999999999</p>
+        </div>
+<script> 
+fnc_sortear();
+</script>
+</form>
+</body>
+</html>
